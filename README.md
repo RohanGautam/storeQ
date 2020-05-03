@@ -1,4 +1,7 @@
 # StoreQ
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/17317792/80913639-b2962e00-8d78-11ea-80c9-7ab2a0959d28.png" alt="logo" width="200">
+</p>
 StoreQ is a futuristic storage system that works by encoding classical data into quantum circuits.
 
 # How it works
