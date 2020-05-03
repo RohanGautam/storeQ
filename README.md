@@ -7,6 +7,8 @@ StoreQ is a futuristic storage system that works by encoding classical data into
 # How it works
 StoreQ can upload and retrieve information from a quantum computer using quantum circuits. This entire process is done by simulation of qbits and quantum processes on my personal computer(which is obviously not quantum). 
 
+StoreQ can successfully demonstrate encoding normal (classical) data into a quantum simulation, and is also capable of extracting the data's information from the probability distribution of the qBits. It thus demonstrates a one-of-a-kind quantum **data storage and backup** system.
+
 # Why it's special
 I think this project has huge extensability beyond what I was able to do in a day. Here's a few:
 * Because the storage media is via quantum circuits, we can use *entanglement* and *superposition* to represent all the data we accumulate into a single qbit superposition. [sorry for the jargon :(!] What it means is that we can represent a big chunk of information in a single quantum bit, and get the information we want from it by "measuring" it in certain ways.
