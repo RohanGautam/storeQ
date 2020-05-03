@@ -22,6 +22,14 @@ def highestPowerOfTwo(img):
     maxVal = max([closestPowerOfTwo(len(list(set(row)))) for row in img])
     return (maxVal, int(math.log(maxVal,2)))
 
+def removePadding(matrix):
+    '''remove padded zeroes from the matrix to give the original LabelBinarizer binary vectors'''
+    # calculate index of the '1' that has the furthest/max index. 
+    # This will be the boundary, beyond which we will discard the columns (zeroes)
+    boundary = max([list(l).index(1) for l in matrix]) # index, begins from 0
+    print(boundary)
+    return matrix[:, :boundary+1] # return sliced matrix
+
 powerVal, exponent = highestPowerOfTwo(img)
 # testing with dummy row
 # r = [20,22,23,43,43,123,7,8,9]
@@ -30,6 +38,9 @@ powerVal, exponent = highestPowerOfTwo(img)
 lb = LabelBinarizer()
 r_oneHot = lb.fit_transform(row1)
 
+# pad extra with zeroes, so that row length is the max power of 2
+padNum = powerVal-r_oneHot.shape[1]
+r_padded = np.hstack((r_oneHot, np.zeros((r_oneHot.shape[0], padNum), dtype=r_oneHot.dtype)))
 
 # qbits = []
 # # create qbits
@@ -45,7 +56,7 @@ for vector in r_oneHot:
 
 
 backend = Aer.get_backend('statevector_simulator')
-def getVector(qc):
+def getOneHotVector(qc):
     result = execute(qc,backend).result()
     out_state = result.get_statevector()
     # print(out_state)
@@ -54,7 +65,7 @@ def getVector(qc):
 
 retrievedVectors=[]
 for circuit in circuits:
-    retrievedVectors.append(getVector(circuit))
+    retrievedVectors.append(getOneHotVector(circuit))
 retrievedVectors = np.array(retrievedVectors) # convert to numpy array
 print(retrievedVectors)
 lb.inverse_transform(retrievedVectors)# the final vector
