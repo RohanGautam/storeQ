@@ -10,3 +10,22 @@
     font-variant: small-caps;
     text-transform: none;
 }
+
+.button {
+    margin: 10px;
+}
+
+img {
+    margin: 10px;
+    border-radius: 20px;
+    height: 545px;
+    width: 418px;
+}
+
+#renderResult {
+    margin-right: 40px;
+    /* border: 2px dashed #ccc; */
+    border-radius: 20px;
+    height: 495px;
+    width: 368px;
+}

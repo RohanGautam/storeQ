@@ -8,14 +8,17 @@ import numpy as np
 import cv2
 import math
 from tqdm import tqdm
+# custom : 
 from customLabelBinarizer import CustomLabelBinarizer
+import imutils
 
 info = "rohan"
-org = cv2.imread('./img/bruh.jpg')
+org = cv2.imread('../../img/puppy.png')
 img = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
-img = img[:img.shape[0]//3, :img.shape[1]//3]
+img = imutils.resize(img, width=100)
 row1 = img[0]
-
+# cv2.imshow("image", img)
+# cv2.waitKey(0)
 
 def closestPowerOfTwo(n):
     return 2**math.ceil(math.log(n)/math.log(2))
