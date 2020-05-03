@@ -18,6 +18,11 @@ countDownload=0
 function updateDownload() {
     if(countDownload<100){
         countDownload+=2;
+    } else if (countDownload>=100){
+        var result = document.getElementById('renderResult');
+        img = document.createElement('img')
+        img.src = "../img/result2.png"
+        result.appendChild(img)
     }
     downloadProgress.value = countDownload;
     setTimeout(updateUpload,1000)
