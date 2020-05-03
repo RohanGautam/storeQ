@@ -7,10 +7,13 @@ from math import sqrt, pi
 import numpy as np
 import cv2
 import math
+from tqdm import tqdm
+from customLabelBinarizer import CustomLabelBinarizer
 
 info = "rohan"
 org = cv2.imread('./img/bruh.jpg')
 img = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
+img = img[:img.shape[0]//3, :img.shape[1]//3]
 row1 = img[0]
 
 
@@ -31,27 +34,31 @@ def removePadding(matrix):
     return matrix[:, :boundary+1] # return sliced matrix
 
 powerVal, exponent = highestPowerOfTwo(img)
-# testing with dummy row
-# r = [20,22,23,43,43,123,7,8,9]
-# one-hot encode them -> convert them to binary vectors
-# why? because sum of amplitudes we pass should be = 1
-lb = LabelBinarizer()
-r_oneHot = lb.fit_transform(row1)
 
-# pad extra with zeroes, so that row length is the max power of 2
-padNum = powerVal-r_oneHot.shape[1]
-r_padded = np.hstack((r_oneHot, np.zeros((r_oneHot.shape[0], padNum), dtype=r_oneHot.dtype)))
+lb_binarizers = []
+rows_circuits = []
+print('[INFO] One-Hot encoding matrix rows')
+for row in tqdm(img) :
+    # one-hot encode them -> convert them to binary vectors
+    # why? because sum of amplitudes we pass should be = 1
+    lb = CustomLabelBinarizer()
+    r_oneHot = lb.fit_transform(row)
+    lb_binarizers.append(lb)
+    # pad extra with zeroes, so that row length is the max power of 2
+    padNum = powerVal-r_oneHot.shape[1]
+    r_padded = np.hstack((r_oneHot, np.zeros((r_oneHot.shape[0], padNum), dtype=r_oneHot.dtype)))
 
-# qbits = []
-# # create qbits
-circuits = []
-for vector in r_padded:
-    qBitNum = exponent
-    qc = QuantumCircuit(qBitNum) 
-    initial_state = vector   # Define initial_state as |1>. sum of amplitudes = 1, has to be power of 2
-    qc.initialize(initial_state, list(range(qBitNum))) # Apply initialisation operation to the 0th qubit
-    # qc.draw()
-    circuits.append(qc)
+    # qbits = []
+    # # create qbits
+    circuits = []
+    for vector in r_padded:
+        qBitNum = exponent
+        qc = QuantumCircuit(qBitNum) 
+        initial_state = vector   # Define initial_state as |1>. sum of amplitudes = 1, has to be power of 2
+        qc.initialize(initial_state, list(range(qBitNum))) # Apply initialisation operation to the 0th qubit
+        # qc.draw()
+        circuits.append(qc)
+    rows_circuits.append(circuits)
 
 
 
@@ -63,11 +70,18 @@ def getOneHotVector(qc):
     vector = [int(x.real) for x in out_state]
     return vector
 
-retrievedVectors=[]
-for circuit in circuits:
-    retrievedVectors.append(getOneHotVector(circuit))
-retrievedVectors = np.array(retrievedVectors) # convert to numpy array
-print(retrievedVectors.shape)
-retrievedVectors = removePadding(retrievedVectors)
-print(retrievedVectors.shape)
-lb.inverse_transform(retrievedVectors)# the final vector
+finalImage = []
+for row_circuit in tqdm(rows_circuits):
+    retrievedVectors=[]
+    for circuit in row_circuit:
+        retrievedVectors.append(getOneHotVector(circuit))
+    retrievedVectors = np.array(retrievedVectors) # convert to numpy array
+    retrievedVectors = removePadding(retrievedVectors)
+    row = lb.inverse_transform(retrievedVectors)# the final vector
+    print(row.shape)
+    finalImage.append(row)
+
+finalImage = np.array(finalImage)
+## show it : 
+cv2.imshow("Reconstructed image", finalImage)
+cv2.waitKey(0)
