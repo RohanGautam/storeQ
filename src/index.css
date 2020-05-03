@@ -1,0 +1,12 @@
+#logoText {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 39px;
+    letter-spacing: -2.8px;
+    word-spacing: -3.8px;
+    color: #000000;
+    font-weight: 700;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: small-caps;
+    text-transform: none;
+}
