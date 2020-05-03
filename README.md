@@ -1,4 +1,4 @@
-# StocQ
+# StoreQ
 
 # References:
 * Fixing weird LabelBinarizer with[a custom class](https://stackoverflow.com/questions/31947140/sklearn-labelbinarizer-returns-vector-when-there-are-2-classes)
