@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_restful import Resource, Api
-import backend.storeQ.quantumStorage as qs
+import sys
+sys.path.insert(1, '/home/rohan/Desktop/Python_files/quantumExploring/backend/storeQ')
+import quantumStorage as qs
 
 app = Flask(__name__)
 api = Api(app)
@@ -9,17 +11,14 @@ api = Api(app)
 class startUpload(Resource):
     def get(self):
         print(f'[GET] starting upload...')
-        
-        return {
-            'startUpload': True,
-        }
+        qs.startUpload()
+        return {'startUpload': True,},200, {'Access-Control-Allow-Origin': '*'}
 
 class startDownload(Resource):
     def get(self):
         print(f'[GET] starting download...')
-        return {
-            'startDownload': True,
-        }
+        qs.startDownload()
+        return {'startDownload': True,},200, {'Access-Control-Allow-Origin': '*'}
 
 
 api.add_resource(startUpload, '/startUpload')

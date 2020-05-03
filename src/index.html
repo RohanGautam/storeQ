@@ -47,14 +47,14 @@
         </div>
         <div class="column">
             <p>To/ From Quantum simulation: </p>
-            <button class="button is-rounded is-primary">
+            <button id="uploadButton" class="button is-rounded is-primary">
                 <span class="icon">
                     <i class="fa fa-upload"></i>
                 </span>
                 <span>Upload</span>
             </button>
             <br>
-            <button class="button is-rounded is-primary">
+            <button id="downloadButton" class="button is-rounded is-primary">
                 <span class="icon">
                     <i class="fa fa-download"></i>
                 </span>
@@ -72,9 +72,9 @@
     <div class="columns">
         <div class="column is-one-thirds"></div>
         <div class="column">
-            <progress class="progress is-info repoViewerProgress" value="10" max="100"></progress>
+            <progress id="uploadProgress" class="progress is-info repoViewerProgress" value="0" max="100"></progress>
             <br>
-            <progress class="progress is-info repoViewerProgress" value="30" max="100"></progress>
+            <progress id="downloadProgress" class="progress is-info repoViewerProgress" value="0" max="100"></progress>
         </div>
         <div class="column is-one-thirds"></div>
     </div>

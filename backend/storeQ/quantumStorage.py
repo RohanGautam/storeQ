@@ -13,7 +13,7 @@ from customLabelBinarizer import CustomLabelBinarizer
 import imutils
 
 info = "rohan"
-org = cv2.imread('../../img/puppy.png')
+org = cv2.imread('/home/rohan/Desktop/Python_files/quantumExploring/img/puppy.png')
 img = cv2.cvtColor(org, cv2.COLOR_BGR2GRAY)
 img = imutils.resize(img, width=100)
 row1 = img[0]
@@ -94,5 +94,5 @@ def startDownload():
     cv2.imshow("Reconstructed image", finalImage)
     cv2.waitKey(0)
 
-startUpload()
-startDownload()
+# startUpload()
+# startDownload()
