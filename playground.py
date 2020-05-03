@@ -45,7 +45,7 @@ r_padded = np.hstack((r_oneHot, np.zeros((r_oneHot.shape[0], padNum), dtype=r_on
 # qbits = []
 # # create qbits
 circuits = []
-for vector in r_oneHot:
+for vector in r_padded:
     qBitNum = exponent
     qc = QuantumCircuit(qBitNum) 
     initial_state = vector   # Define initial_state as |1>. sum of amplitudes = 1, has to be power of 2
@@ -67,5 +67,7 @@ retrievedVectors=[]
 for circuit in circuits:
     retrievedVectors.append(getOneHotVector(circuit))
 retrievedVectors = np.array(retrievedVectors) # convert to numpy array
-print(retrievedVectors)
+print(retrievedVectors.shape)
+retrievedVectors = removePadding(retrievedVectors)
+print(retrievedVectors.shape)
 lb.inverse_transform(retrievedVectors)# the final vector
