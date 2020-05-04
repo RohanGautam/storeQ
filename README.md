@@ -4,6 +4,8 @@
 </p>
 StoreQ is a futuristic storage system that works by encoding classical data into quantum circuits.
 
+Made by me for [Hack At Home](https://hack-at-home.devpost.com/). Devpost [here](https://devpost.com/software/storeq)!
+
 # How it works
 StoreQ can upload and retrieve information from a quantum computer using quantum circuits. This entire process is done by simulation of qbits and quantum processes on my personal computer(which is obviously not quantum). 
 
